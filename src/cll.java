@@ -1,9 +1,11 @@
-public class singlyLinkedList {
+public class cll {
     private Node head;
+    private Node tail;
     int size;
 
-    public singlyLinkedList() {
+    public cll() {
         this.head = null;
+        this.tail = null;
         this.size = 0;
     }
 
@@ -22,22 +24,26 @@ public class singlyLinkedList {
             node = node.next;
         }
     }
-        //   Q.1 + Q.5
+    //   Q.1 + Q.5
     void Insert(int data, boolean atFront){
-        Node node = new Node(data);
-        if(atFront){    // Q.1
-            node.next = head;
-            head = node;
+        Node newNode = new Node(data);
+        if(head == null){
+            head = newNode;
+            tail = newNode;
+            newNode.next = head;
+        }if(atFront){    // Q.1
+            newNode.next = head;
+            head = newNode;
         } else{     // Q.5
-            if(head == null) {
-                head = node;
-            } else {
+
                 Node temp = head;
-                while(temp.next != null){
-                    temp = temp.next;
-                }
-                temp.next = node;
-            }
+//                while(temp.next != null){
+//                    temp = temp.next;
+//                }
+            tail.next = newNode;
+            newNode.next = head;
+            tail = newNode;
+
         }
         size++;
     }
@@ -62,11 +68,15 @@ public class singlyLinkedList {
             head = null;
             return;
         }
-        Node currentNode = head;
-        while(currentNode.next.next != null){
-            currentNode = currentNode.next;
+        Node temp = head;
+        while(temp.next != tail){
+            temp = temp.next;
         }
-        currentNode.next = null;
+        temp.next = tail.next;
+        tail = temp;
+
+
+
     }
 
     //          Q.7
@@ -89,7 +99,6 @@ public class singlyLinkedList {
 
     //         Q.8
     void deletePosition(int pos){
-
         Node temp = head;
         int j = 1;
         while(j < pos){
@@ -100,7 +109,7 @@ public class singlyLinkedList {
     }
 
     //         Q.9
-   void reverseList(){
+    void reverseList(){
         Node prev = null;
         Node current = head;
         Node next = null;
@@ -111,9 +120,9 @@ public class singlyLinkedList {
             current = next;
         }
         head = prev;
-   }
+    }
 
-   //         Q.10
+    //         Q.10
     int min(){
         if (head == null) {
             System.out.println("List is empty");
@@ -179,52 +188,7 @@ public class singlyLinkedList {
 
     public static void main(String[] args) {
 
-        singlyLinkedList list = new singlyLinkedList();
 
-        // Q.1 + Q.5 - Testing Insert at front and end
-        System.out.println("=== Q.1 + Q.5 - Testing Insert at front and end ===");
-        list.Insert(30);
-        list.Insert(20);
-        list.Insert(10, true);
-        list.Insert(40);
-        list.display();
-
-        // Q.3 - Delete first
-        System.out.println("\n=== Q.3 - Delete first ===");
-        list.deleteFirst(true);
-        list.display();
-
-        // Q.6 - Delete last
-        System.out.println("\n=== Q.6 - Delete last   ===");
-        list.deleteLast();
-        list.display();
-
-        // Q.7 - Insert at position
-        System.out.println("\n=== Q.7 - Insert at position ===");
-        list.InsertPosition(25, 1);
-        list.display();
-
-        // Q.8 - Delete at position
-        System.out.println("\n=== Q.8 - Delete at position ===");
-        list.deletePosition(1);
-        list.display();
-
-        // Q.9 - Reverse list
-        System.out.println("\n=== Q.9 - Reverse list ===");
-        list.Insert(40);
-        list.display();
-        list.reverseList();
-        list.display();
-
-        // Q.10 + Q.11 - Min and Max
-        System.out.println("\n=== Q.10 + Q.11 - Min and Max ===");
-        System.out.println("Min: " + list.min());
-        System.out.println("Max: " + list.max());
-
-        // Q.12 - Search
-        System.out.println("\n=== Q.12 - Search ===");
-        list.search(30);
-        list.search(99);
 
     }
 
