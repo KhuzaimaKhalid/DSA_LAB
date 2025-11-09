@@ -103,23 +103,48 @@ class Dynamic_Array {
          */
     }
 //              Q.7
-    public char[] common(char arr2[]){
-        char temp[] = new char[listSize];    // 1 op
-        int count = 0;   // 1 op
-        for (int i = 0; i < arr.length ; i++) {  // n
-            for (int j = 0; j < arr2.length; j++) {   // n*n
-                if(arr[i] == arr[j]){  // 3 op
-                    temp[count] = arr[i];   // 3 op
-                    count++;  // 1 op
-                    break;  // 1 op
-                }
-            }
-        }
-        return temp;    // 1 op
-        /*
-        8n^2 + n + 3 = O(n^2)
-         */
+//    public char[] common(char arr2[]){
+//        char temp[] = new char[listSize];    // 1 op
+//        int count = 0;   // 1 op
+//        for (int i = 0; i < arr.length ; i++) {  // n
+//            for (int j = 0; j < arr2.length; j++) {   // n*n
+//                if(arr[i] == arr[j]){  // 3 op
+//                    temp[count] = arr[i];   // 3 op
+//                    count++;  // 1 op
+//                    break;  // 1 op
+//                }
+//            }
+//        }
+//        return temp;    // 1 op
+//        /*
+//        8n^2 + n + 3 = O(n^2)
+//         */
+//    }
+//                   Q.7
+public char[] common(char arr2[]){
+    char temp[] = new char[listSize];  // 1 op
+    int count = 0;   // 1 op
+
+    // Step 1: Mark which characters exist in arr2
+    boolean[] exists = new boolean[256];  // ASCII characters
+    for (int i = 0; i < arr2.length; i++) {  // n
+        exists[arr2[i]] = true;  // 3 op
     }
+
+    // Step 2: Check arr elements against the boolean array
+    boolean[] added = new boolean[256];  // To avoid duplicates   // 1op
+    for (int i = 0; i < arr.length; i++) {   // m
+        if (exists[arr[i]] && !added[arr[i]]) {   // 6 op
+            temp[count] = arr[i];  // 3 op
+            count++; // 1op
+            added[arr[i]] = true; // 3op
+        }
+    }
+
+    return temp; // 1 op
+
+    // 3n + 13m + 3 = O(n+m)
+}
 
     //          Q.8
     public int product(){
@@ -155,40 +180,72 @@ class Dynamic_Array {
     }
 
     //          Q.11
+//    public char[] distinct(){
+//        if(listSize <= 0) {     // 1 op
+//            System.out.println("Error due to empty list");    // 1 op
+//            return new char[-1];    // 1 op
+//        }
+//        char temp[] = new char[listSize];       // 1 op
+//        int count = 0;       // 1 op
+//
+//        for (int i = 0; i < listSize; i++) {         // n
+//            boolean isDuplicate = false;     // 1 op
+//
+//            for (int j = 0; j < count; j++) {      // n*n
+//                if(arr[i] == temp[j]) {      // 3 op
+//                    isDuplicate = true; // 1 op
+//                    break;  // 1 op
+//                }
+//            }
+//            if(!isDuplicate) {    // 1 op
+//                temp[count] = arr[i];   // 3 op
+//                count++;  //  1 op
+//            }
+//
+//        }
+//
+//        // Return array with only distinct elements
+//        char result[] = new char[count];   // 1 op
+//        for (int i = 0; i < count; i++) {   // n
+//            result[i] = temp[i];   // 3 op
+//        }
+//
+//        return result;   // 2 op
+//        /*
+//        5n^2 + 6n + 3n + 8 = O(n^2+n)
+//         */
+//    }
+
+    //                Q.11
     public char[] distinct(){
-        if(listSize <= 0) {     // 1 op
-            System.out.println("Error due to empty list");    // 1 op
-            return new char[-1];    // 1 op
+        if(listSize <= 0) {  // 1 op
+            System.out.println("Error due to empty list");  // 1 op
+            return new char[-1];  // 1 op
         }
-        char temp[] = new char[listSize];       // 1 op
-        int count = 0;       // 1 op
 
-        for (int i = 0; i < listSize; i++) {         // n
-            boolean isDuplicate = false;     // 1 op
+        char temp[] = new char[listSize];   // 1 op
+        int count = 0;   // 1 op
 
-            for (int j = 0; j < count; j++) {      // n*n
-                if(arr[i] == temp[j]) {      // 3 op
-                    isDuplicate = true; // 1 op
-                    break;  // 1 op
-                }
+        // Track which characters we've already seen
+        boolean[] seen = new boolean[256];  // ASCII characters   // 1 op
+
+        for (int i = 0; i < listSize; i++) {   // n
+            if (!seen[arr[i]]) {  // 4 op
+                temp[count] = arr[i];  // 3 op
+                count++; // 1 op
+                seen[arr[i]] = true;  // 4 op
             }
-            if(!isDuplicate) {    // 1 op
-                temp[count] = arr[i];   // 3 op
-                count++;  //  1 op
-            }
-
         }
 
         // Return array with only distinct elements
         char result[] = new char[count];   // 1 op
-        for (int i = 0; i < count; i++) {   // n
-            result[i] = temp[i];   // 3 op
+        for (int i = 0; i < count; i++) {   // 1 op
+            result[i] = temp[i];  // 1 op
         }
 
-        return result;   // 2 op
-        /*
-        5n^2 + 6n + 3n + 8 = O(n^2+n)
-         */
+        return result;  // 1 op
+
+        // 12n + 2n + 6 = 14n + 6 = O(n)
     }
 
     //          Q.10
