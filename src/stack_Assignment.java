@@ -22,7 +22,7 @@ int pop(){
             System.out.println("error in pop");
             return -1;
         }
-        return this.arr[this.top++];
+        return this.arr[this.top--];
 }
 
 // Q.4
@@ -115,5 +115,44 @@ int min(){
         }
     }
 
+    public static void main(String[] args) {
+        stack_Assignment s = new stack_Assignment(5);
 
+        // test push
+        s.push(10);
+        s.push(20);
+        s.push(30);
+        s.push(40);
+        s.push(50);
+
+        System.out.println("All stack elements:");
+        s.print();
+
+        // test peek
+        System.out.print("Top element is: ");
+        s.peek();
+
+        // test pop
+        System.out.println("Popped element: " + s.pop());
+
+        // test isFull and isEmpty
+        System.out.println("Is full? " + s.isFull());
+        System.out.println("Is empty? " + s.isEmpty());
+
+        // test max, min, average
+        System.out.println("Max value: " + s.max());
+        System.out.println("Min value: " + s.min());
+        System.out.println("Average: " + s.average());
+
+        // test search
+        System.out.println("Search 30 found at index: " + s.search(30));
+
+        // test evenOdd
+        System.out.println("Even and Odd elements:");
+        s.evenOdd();
+
+        // test reverse
+        System.out.println("Reversed stack:");
+        s.reverse();
+    }
 }
