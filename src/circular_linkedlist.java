@@ -134,12 +134,12 @@ public class circular_linkedlist {
         c.insertLast(20);
         c.insertLast(30);
         c.display();
-//        System.out.println(c.max());
-//        System.out.println(c.min());
-//        System.out.println(c.sum());
-//        System.out.println(c.product());
-//        System.out.println(c.size());
-//        System.out.println(c.average());
+        System.out.println(c.max());
+        System.out.println(c.min());
+        System.out.println(c.sum());
+        System.out.println(c.product());
+        System.out.println(c.size());
+        System.out.println(c.average());
         System.out.println("===================================================================");
         c.insertPosition(25,2);
         c.display();
