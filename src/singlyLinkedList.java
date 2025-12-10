@@ -1,3 +1,4 @@
+import java.util.Stack;
 public class singlyLinkedList {
     private Node head;
     int size;
@@ -175,6 +176,33 @@ public class singlyLinkedList {
         }
         System.out.println("Data is not in the list \n");
         return pos;
+    }
+
+    // Easy way: Check if the linked list is a palindrome using a stack
+    boolean isPalindrome() {
+        if (head == null) {
+            return true;
+        }
+
+        // Step 1: Push all elements into a stack
+        Stack<Integer> stack = new Stack<>();
+        Node temp = head;
+
+        while (temp != null) {
+            stack.push(temp.data);
+            temp = temp.next;
+        }
+
+        // Step 2: Pop from stack and compare with list elements
+        temp = head;
+        while (temp != null) {
+            if (temp.data != stack.pop()) {
+                return false;
+            }
+            temp = temp.next;
+        }
+
+        return true;
     }
 
     public static void main(String[] args) {
