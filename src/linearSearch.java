@@ -25,6 +25,15 @@ public class linearSearch {
             System.out.println("Array is full.");
         }
     }
+    int recursivelinearSearch(int[] arr, int index, int key) {
+        if (index == arr.length) {
+            return -1;
+        }
+        if (arr[index] == key) {
+            return index;
+        }
+        return recursivelinearSearch(arr, index + 1, key);
+    }
 
     int binarySearch(int target){
         int low = 0;
@@ -33,9 +42,9 @@ public class linearSearch {
         while(low <= high){
             int mid = (low + high)/2;
             if(target < arr[mid]){
-                low = mid - 1;
+                low = mid + 1;
             } else if(target > arr[mid]){
-                high = mid + 1;
+                high = mid - 1;
             } else if (target == arr[mid]){
                 return mid;
             }
@@ -43,18 +52,35 @@ public class linearSearch {
         return -1;
     }
 
-    int evenOdd(int[] arr, int data){
-
-            if(data > arr.length-1){
+    int evenOdd(int[] arr, int index){
+            if(index > arr.length-1){
                 return -1;
-            }else if (arr[data] % 2 == 0){
-            return arr[data];
-        }  else {
-                return evenOdd(arr,data+1);
+            }else if (arr[index] % 2 == 0){
+                System.out.println(arr[index] + " is Even");
+            }  else {
+                System.out.println(arr[index] + " is Even");
             }
-
-
+        return evenOdd(arr,index+1);
     }
+
+    int recursiveBinarySearch(int[] arr, int low, int high, int target){
+        if (low > high) {
+            return -1;
+        }
+
+        int mid = (low + high) / 2;
+
+        if (arr[mid] == target) {
+            return mid;
+        }
+        else if (target < arr[mid]) {
+            return recursiveBinarySearch(arr, low, mid - 1, target);
+        }
+        else {
+            return recursiveBinarySearch(arr, mid + 1, high, target);
+        }
+    }
+
     int sum(int index) {
         // Base case: reached end of array
         if (index >= arr.length) {
@@ -63,11 +89,6 @@ public class linearSearch {
 
         // Return current element + sum of remaining elements
         return arr[index] + sum(index + 1);
-    }
-
-    // Wrapper method to start from index 0
-    int sum() {
-        return sum(0);
     }
 
     // Fibonacci using recursion
@@ -104,12 +125,13 @@ public class linearSearch {
         s.insert(3);
         s.insert(4);
         s.insert(5);
-//        System.out.println(s.search(2));
-//        System.out.println(s.binarySearch(3));
+       System.out.println(s.search(2));
+       System.out.println(s.binarySearch(3));
         int[] arr = {2,4,9,11,13};
-//        System.out.println(s.recursiveBinarySearch(arr,13,0, arr.length-1));
-//        s.sum(0);
-        System.out.println(s.evenOdd(arr,0));
-        s.printFibonacci(10);
+        System.out.println(s.recursiveBinarySearch(arr,0,arr.length-1, 13));
+        System.out.println(s.recursivelinearSearch(arr,0,11));
+        System.out.println(s.sum(0));
+       s.evenOdd(arr,0);
+       s.printFibonacci(10);
     }
 }
