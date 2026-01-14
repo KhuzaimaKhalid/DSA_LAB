@@ -1,7 +1,8 @@
-
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class BST_2 {
-    class Node{
+   class Node{
         Node left,right;
         int key;
 
@@ -26,6 +27,33 @@ public class BST_2 {
             root.left = insertrec(root.left,key);
         } else if (key > root.key) {
             root.right =  insertrec(root.right,key);
+        }
+        return root;
+    }
+
+    public  Node insert(Node root, int key){
+        Node newNode = new Node(key);
+        if(root == null){
+            return newNode;
+        }
+        Node current = root;
+        Node parent = null;
+        while (current != null){
+            parent = current;
+            if(key < current.key){
+                current = current.left;
+            } else if (key > current.key) {
+                current = current.right;
+            } else{
+                System.out.println("duplicate node");
+                return root;
+            }
+        }
+        if(key < parent.key){
+            parent.left = newNode;
+        }
+        if(key > parent.key){
+            parent.right = newNode;
         }
         return root;
     }
@@ -117,6 +145,26 @@ public class BST_2 {
         printKDistance(root.right, k - 1);
     }
 
+    public void BSFiterative(Node root){
+        if(root == null){
+            return;
+        }
+        Queue<Node> q = new LinkedList<>();
+        q.add(root);
+
+        while(!q.isEmpty()){
+            Node curr = q.poll();
+            System.out.print(curr.key+" ");
+            if(curr.left != null){
+                q.add(curr.left);
+            }
+            if(curr.right != null){
+                q.add(curr.right);
+            }
+        }
+        System.out.println();
+    }
+
     public static void main(String[] args) {
         BST_2 t = new BST_2();
         t.root = t.insertrec(t.root, 50);
@@ -161,7 +209,21 @@ public class BST_2 {
         System.out.println("Nodes at distance 2:");
         t.printKDistance(t.root, 2);
 
+        BST_2 r = new BST_2();
+        r.root = r.insert(r.root, 50);
+        r.root = r.insert(r.root, 30);
+        r.root = r.insert(r.root, 70);
+        r.root = r.insert(r.root, 20);
+        r.root = r.insert(r.root, 40);
+        r.root = r.insert(r.root, 60);
+        r.root = r.insert(r.root, 80);
+        r.root = r.insert(r.root, 30); // duplicate → prints "DUPLICATE NODE"
+
+        System.out.print("Inorder traversal: ");
+        r.inorder(r.root); // expected: 20 30 40 50 60 70 80
+
     }
+
 
 }
 
